@@ -92,6 +92,62 @@
     </script>
   </head>
   <body>
+
+    <header>
+        <nav class="navbar">
+            <!-- Logo Link -->
+            <div class="logo-container">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-text"><span class="taxi">TAXI</span><span class="fare">FARE</span></span>
+                </a>
+                <a href="tel:+916378582363" class="phone-number">
+                    <i class="fa-solid fa-phone"></i>
+                    <span class="phone-text">+91 6378582363</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-tagline">Your <span class="highlight">Ride</span><br>Your <span class="highlight">Way</span> -Taxi<span class="highlight">FARE</span></h1>
+                
+                <p class="booking-text">Book your <span class="taxi-highlight">Taxi</span> in few minutes -available <span class="bold">24/7</span></p>
+                
+                <div class="rating">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="customers">2,00,000+ <a href="#">Trusted Customers</a></p>
+                </div>
+                
+                <div class="cta-buttons">
+                    <a href="tel:+916378582363" class="cta-btn call-btn">
+                        <i class="fa-solid fa-phone"></i>
+                        CALL
+                    </a>
+                    <a href="#booking" class="cta-btn book-btn">BOOK NOW</a>
+                </div>
+
+                <div class="social-icons">
+                    <a href="#" class="social-icon whatsapp">
+                        <i class="ri-whatsapp-fill"></i>
+                    </a>
+                    <a href="#" class="social-icon instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
     <section class="about-section">
       <div class="title-wrapper">
         <h1 class="title">Who <span>We</span> Are?</h1>
@@ -114,111 +170,123 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-      <div class="contact-container">
-        <div class="contact-content">
-          <div class="contact-section-info">
-            <h2>Get in Touch with Us</h2>
-            <p class="contact-description">
-              If you'd like, you can call us directly at the provided number, or
-              simply fill out the form, and we'll get back to you shortly.
-            </p>
-            <div class="contact-details">
-              <div class="contact-item">
-                <div class="icon-wrapper">
-                  <i class="fa-solid fa-phone" aria-hidden="true"></i>
+    <!-- Contact Section -->
+      <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>Get in Touch with Us</h2>
+                    <p class="contact-description">
+                        If you'd like, you can call us directly at the provided number, or simply fill out the form, and we'll get back to you shortly.
+                    </p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="icon-wrapper">
+                                <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Call Us</h3>
+                                <a href="tel:+919876543210" class="phone-link">+91 9876 543 210</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="icon-wrapper">
+                                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Email Us</h3>
+                                <a href="mailto:info@taxifare.com" class="email-link">info@taxifare.com</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="contact-text">
-                  <h3>Call Us</h3>
-                  <a href="tel:+919876543210" class="phone-link"
-                    >+91 9876 543 210</a
-                  >
-                </div>
-              </div>
+                
+                <div class="contact-form-container">
+                    <form class="contact-form" action="#" method="POST">
+                         <div class="form-group">
+                            <label for="mobile">Mobile Number</label>
+                            <input 
+                                type="tel" 
+                                id="mobile" 
+                                name="mobile" 
+                                placeholder="Enter your mobile number" 
+                                pattern="[6-9][0-9]{9}" 
+                                title="Please enter a valid 10-digit Indian mobile number" 
+                                required 
+                            />
+                        </div>
 
-              <div class="contact-item">
-                <div class="icon-wrapper">
-                  <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                        <div class="form-group">
+                            <label for="trip-date">Trip Date</label>
+                            <input 
+                                type="date" 
+                                id="trip-date" 
+                                name="trip-date" 
+                                required 
+                            />
+                            <small class="form-hint">Select your preferred trip date</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="vehicle-type">Vehicle Type</label>
+                            <select 
+                                id="vehicle-type" 
+                                name="vehicle-type" 
+                                required
+                            >
+                                <option value="">Select vehicle type</option>
+                                <option value="sedan">Sedan</option>
+                                <option value="7-seater">7 Seater</option>
+                                <option value="11-seater">11 Seater</option>
+                                <option value="tempo-traveller">Tempo Traveller</option>
+                                <option value="bus">Bus</option>
+                            </select>
+                            <small class="form-hint">Choose the vehicle that suits your needs</small>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="from">From</label>
+                                <input 
+                                    type="text" 
+                                    id="from" 
+                                    name="from" 
+                                    placeholder="Pickup location" 
+                                    required 
+                                />
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="to">To</label>
+                                <input 
+                                    type="text" 
+                                    id="to" 
+                                    name="to" 
+                                    placeholder="Drop location" 
+                                    required 
+                                />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="query">Your Query</label>
+                            <textarea 
+                                id="query" 
+                                name="query" 
+                                placeholder="Tell us about your requirements" 
+                                rows="4"
+                            ></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            Submit Request
+                        </button>
+                    </form>
                 </div>
-                <div class="contact-text">
-                  <h3>Email Us</h3>
-                  <a href="mailto:info@taxifare.com" class="email-link"
-                    >info@taxifare.com</a
-                  >
-                </div>
-              </div>
             </div>
-          </div>
-
-          <div class="contact-form-container">
-            <form class="contact-form" action="#" method="POST">
-              <div class="form-group">
-                <label for="name">Full Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Enter your full name"
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="mobile">Mobile Number</label>
-                <input
-                  type="tel"
-                  id="mobile"
-                  name="mobile"
-                  placeholder="Enter your mobile number"
-                  pattern="[6-9][0-9]{9}"
-                  title="Please enter a valid 10-digit Indian mobile number"
-                  required
-                />
-                <small class="form-hint"
-                  >Format: Indian mobile number only!</small
-                >
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="from">From</label>
-                  <input
-                    type="text"
-                    id="from"
-                    name="from"
-                    placeholder="Pickup location"
-                    required
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="to">To</label>
-                  <input
-                    type="text"
-                    id="to"
-                    name="to"
-                    placeholder="Drop location"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="query">Your Query</label>
-                <textarea
-                  id="query"
-                  name="query"
-                  placeholder="Tell us about your requirements"
-                  rows="4"
-                ></textarea>
-              </div>
-
-              <button type="submit" class="submit-btn">Submit Request</button>
-            </form>
-          </div>
         </div>
-      </div>
-    </section>
+      </section>
     <!-- Taxi Section -->
     <div class="container1">
       <div class="header">
@@ -477,11 +545,11 @@
               <p>305002</p>
               <p>
                 <a href="mailto:Info@taxifare.Com" title="Email us"
-                  >Info@taxifare.Com</a
+                  style="color: white;">Info@taxifare.Com</a
                 >
               </p>
               <p>
-                <a href="tel:+918XXXXXXXX" title="Call us">+91 89XXXXX888</a>
+                <a href="tel:+918XXXXXXXX" title="Call us" style="color: white">+91 9876 543 210</a>
               </p>
             </div>
           </div>
@@ -492,10 +560,7 @@
               <li><a href="#" title="My Bookings">My Bookings</a></li>
               <li><a href="#" title="Cancellation">Cancellation</a></li>
               <li><a href="#" title="My Account">My Account</a></li>
-              <li><a href="#" title="Wallet">Wallet</a></li>
-              <li>
-                <a href="#" title="Advertise With Us">Advertise With Us</a>
-              </li>
+  
             </ul>
           </div>
         </div>

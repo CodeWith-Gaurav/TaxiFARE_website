@@ -1,3 +1,55 @@
+// ===== MOBILE NAVIGATION =====
+// Wait for DOM to fully load
+document.addEventListener('DOMContentLoaded', function() {
+    // Get elements
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    // Check if elements exist before adding event listeners
+    if (menuBtn && closeBtn && navLinks) {
+        // Open menu when hamburger icon is clicked
+        menuBtn.addEventListener('click', function() {
+            navLinks.classList.add('active');
+        });
+        
+        // Close menu when X icon is clicked
+        closeBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            navLinks.classList.remove('active');
+        });
+        
+        // Close menu when clicking outside (optional enhancement)
+        document.addEventListener('click', function(event) {
+            if (!navLinks.contains(event.target) && !menuBtn.contains(event.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Close menu when window is resized to desktop size
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+            
+            // Ensure proper display of menu buttons based on screen size
+            if (window.innerWidth > 768) {
+                // Hide buttons on desktop
+                if (menuBtn) menuBtn.style.display = 'none';
+            } else {
+                // Show hamburger on mobile
+                if (menuBtn) menuBtn.style.display = 'block';
+            }
+        });
+        
+        // Initial check for screen size
+        if (window.innerWidth > 768) {
+            menuBtn.style.display = 'none';
+            closeBtn.style.display = 'none';
+        }
+    }
+});
+
 // ===== TESTIMONIAL SLIDER =====
 document.addEventListener('DOMContentLoaded', function () {
     const track = document.querySelector('.testimonial-track');
@@ -144,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // ===== KNOW MORE BUTTON =====
 document.addEventListener('DOMContentLoaded', function () {
     const knowMoreBtn = document.getElementById('knowMoreBtn');
-    
+
     if (knowMoreBtn) {
         knowMoreBtn.addEventListener('click', function () {
             // You can add functionality here like scrolling to another section
@@ -258,7 +310,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     const slider = document.getElementById('carsSlider');
     const cars = document.querySelectorAll('.car-item');
-    
+
     // Skip if car slider elements don't exist
     if (!slider || !cars.length) {
         console.warn('Car slider elements not found. Make sure you have #carsSlider and .car-item elements in your HTML.');
@@ -273,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Calculate responsive values
     function getSliderConfig() {
         const screenWidth = window.innerWidth;
-        
+
         if (screenWidth <= 480) {
             return {
                 itemsToShow: 1.2,
@@ -313,7 +365,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Calculate translation
         const translateX = -(currentSlide * (config.itemWidth + config.gap));
-        
+
         // Apply transform with smooth transition
         slider.style.transform = `translateX(${translateX}px)`;
         slider.style.transition = 'transform 0.3s ease-in-out';
@@ -409,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!img) return;
 
             img.style.cursor = 'pointer';
-            img.addEventListener('click', function() {
+            img.addEventListener('click', function () {
                 // Create zoom overlay
                 const overlay = document.createElement('div');
                 overlay.style.cssText = `
@@ -456,7 +508,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 function closeZoom() {
                     overlay.style.opacity = '0';
                     zoomedImg.style.transform = 'scale(0.8)';
-                    
+
                     setTimeout(() => {
                         if (document.body.contains(overlay)) {
                             document.body.removeChild(overlay);
@@ -466,7 +518,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 overlay.addEventListener('click', closeZoom);
-                
+
                 // Close on escape key
                 function handleEscape(e) {
                     if (e.key === 'Escape') {
@@ -486,7 +538,7 @@ document.addEventListener('DOMContentLoaded', function () {
     slider.addEventListener('touchmove', handleTouchMove, { passive: false });
     slider.addEventListener('touchend', handleTouchEnd);
 
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
         updateSlider();
     });
 
@@ -495,31 +547,171 @@ document.addEventListener('DOMContentLoaded', function () {
     setupImageZoom();
     startAutoSlide();
 
-    // Add navigation buttons if they exist
-    const prevButton = document.querySelector('.car-slider-prev');
-    const nextButton = document.querySelector('.car-slider-next');
+    // Make functions globally accessible for onclick handlers
+    window.previousSlide = function () {
+        console.log('Global previousSlide called');
+        stopAutoSlide();
+        previousSlide();
+        setTimeout(() => startAutoSlide(), 100);
+    };
 
+    window.nextSlide = function () {
+        console.log('Global nextSlide called');
+        stopAutoSlide();
+        nextSlide();
+        setTimeout(() => startAutoSlide(), 100);
+    };
+
+    // Add navigation buttons - Multiple selector attempts for compatibility
+    const prevButtonSelectors = [
+        '.nav-btn.prev',
+        '.navigation .prev',
+        '.car-slider-prev',
+        '.prev-car-btn',
+        '.car-prev',
+        '#carPrevBtn',
+        '.slider-prev',
+        '[data-car-prev]'
+    ];
+
+    const nextButtonSelectors = [
+        '.nav-btn.next',
+        '.navigation .next',
+        '.car-slider-next',
+        '.next-car-btn',
+        '.car-next',
+        '#carNextBtn',
+        '.slider-next',
+        '[data-car-next]'
+    ];
+
+    let prevButton = null;
+    let nextButton = null;
+
+    // Find prev button using multiple selectors
+    for (const selector of prevButtonSelectors) {
+        prevButton = document.querySelector(selector);
+        if (prevButton) {
+            console.log('Previous button found with selector:', selector, prevButton);
+            break;
+        }
+    }
+
+    // Find next button using multiple selectors
+    for (const selector of nextButtonSelectors) {
+        nextButton = document.querySelector(selector);
+        if (nextButton) {
+            console.log('Next button found with selector:', selector, nextButton);
+            break;
+        }
+    }
+
+    // Add event listeners with proper error handling (in addition to onclick)
     if (prevButton) {
-        prevButton.addEventListener('click', () => {
+        prevButton.addEventListener('click', function (e) {
+            console.log('Previous button clicked via event listener');
             stopAutoSlide();
             previousSlide();
-            startAutoSlide();
+            setTimeout(() => startAutoSlide(), 100);
         });
+    } else {
+        console.warn('Previous button not found. Tried selectors:', prevButtonSelectors);
     }
 
     if (nextButton) {
-        nextButton.addEventListener('click', () => {
+        nextButton.addEventListener('click', function (e) {
+            console.log('Next button clicked via event listener');
             stopAutoSlide();
             nextSlide();
-            startAutoSlide();
+            setTimeout(() => startAutoSlide(), 100);
         });
+    } else {
+        console.warn('Next button not found. Tried selectors:', nextButtonSelectors);
     }
 
-    // Expose functions globally for external control (optional)
+    // Also try to find buttons as direct children or siblings of slider container
+    const sliderContainer = slider.parentElement;
+    if (sliderContainer) {
+        const containerPrev = sliderContainer.querySelector('button[class*="prev"], button[id*="prev"], .btn-prev, .previous');
+        const containerNext = sliderContainer.querySelector('button[class*="next"], button[id*="next"], .btn-next, .next');
+
+        if (containerPrev && !prevButton) {
+            console.log('Found prev button in container:', containerPrev);
+            containerPrev.addEventListener('click', function (e) {
+                stopAutoSlide();
+                previousSlide();
+                setTimeout(() => startAutoSlide(), 100);
+            });
+        }
+
+        if (containerNext && !nextButton) {
+            console.log('Found next button in container:', containerNext);
+            containerNext.addEventListener('click', function (e) {
+                stopAutoSlide();
+                nextSlide();
+                setTimeout(() => startAutoSlide(), 100);
+            });
+        }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function (e) {
+        // Only work if slider is visible and focused area
+        const sliderRect = slider.getBoundingClientRect();
+        const isSliderVisible = sliderRect.top < window.innerHeight && sliderRect.bottom > 0;
+
+        if (isSliderVisible) {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                stopAutoSlide();
+                previousSlide();
+                setTimeout(() => startAutoSlide(), 100);
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                stopAutoSlide();
+                nextSlide();
+                setTimeout(() => startAutoSlide(), 100);
+            }
+        }
+    });
+
+    // Universal click handler for any button with car slider attributes
+    document.addEventListener('click', function (e) {
+        const target = e.target;
+
+        // Check if clicked element or its parent is a car slider button
+        const isCarPrevBtn = target.hasAttribute('data-car-prev') ||
+            target.closest('[data-car-prev]') ||
+            target.classList.contains('car-prev') ||
+            target.classList.contains('car-slider-prev');
+
+        const isCarNextBtn = target.hasAttribute('data-car-next') ||
+            target.closest('[data-car-next]') ||
+            target.classList.contains('car-next') ||
+            target.classList.contains('car-slider-next');
+
+        if (isCarPrevBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Car previous button clicked via universal handler');
+            stopAutoSlide();
+            previousSlide();
+            setTimeout(() => startAutoSlide(), 100);
+        } else if (isCarNextBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Car next button clicked via universal handler');
+            stopAutoSlide();
+            nextSlide();
+            setTimeout(() => startAutoSlide(), 100);
+        }
+    });
+
+    // Global API for car slider
     window.carSlider = {
         next: nextSlide,
         previous: previousSlide,
-        goTo: function(index) {
+        goTo: function (index) {
             const config = getSliderConfig();
             const maxIndex = Math.max(0, cars.length - Math.floor(config.itemsToShow));
             currentSlide = Math.max(0, Math.min(index, maxIndex));
